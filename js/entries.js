@@ -41,7 +41,7 @@ function Img(name, url) {
 }
 
 Entry.prototype.toHTML = function() {
-  this.publishStatus = parseInt(Math.round((new Date() - new Date(this.date))/60/60/24/1000));
+  this.publishedOn = parseInt(Math.round((new Date() - new Date(this.date))/60/60/24/1000));
   return Handlebars.compile($('#entry-template').html())(this);
 };
 
