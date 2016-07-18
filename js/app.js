@@ -30,20 +30,20 @@ function generateContent(img) {
   $('#main').html('');
 
   if (img) {  //if img parameter was given by navImg event handler
+    $('#main').hide();
     for(var i = 0; i < entries.length; i++) {
       if (entries[i].name === img) {
-        $('#main').hide();
         htmlEntries.push(new Entry(entries[i]));
-        htmlEntries.sort(function(a,b) {
-          return (new Date(b.date)) - (new Date(a.date));
-        });
-        htmlEntries.forEach(function(e) {
-          $('#main').append(e.toHTML());
-        });
-        genNavImages(entries);
-        $('#main').fadeIn();
       }
     };
+    htmlEntries.sort(function(a,b) {
+      return (new Date(b.date)) - (new Date(a.date));
+    });
+    htmlEntries.forEach(function(e) {
+      $('#main').append(e.toHTML());
+    });
+    genNavImages(entries);
+    $('#main').fadeIn();
     return;
   }
   //if no navImg given
