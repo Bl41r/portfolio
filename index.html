@@ -12,7 +12,9 @@
     <script src="js/jquery-ui.min.js"></script>
 		<script id="entry-template" type="text/x-handlebars-template">
 			<h3 class="sub-headings"><a class="anchor" name="{{ name }}"></a>{{ section }}</h3>
-			<div><time pubdate title="{{ date }}">{{ publishedOn }}</time><p>{{ text }}</p></div>
+			<div><time pubdate title="{{ date }}">Published {{ publishedOn }} days ago</time>
+				<p>{{ text }}</p>
+			</div>
 		</script>
 	</head>
 	<body>

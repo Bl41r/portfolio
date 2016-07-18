@@ -1,6 +1,7 @@
 // Main file for portfolio
 // David Smith
-/////////////////////////////////////////////
+//todo:  new nav icons, add code projects (refactor)
+////////////////////////////////////////////////////////////////
 var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
 
 function adjustNavImageSize() {
@@ -22,31 +23,32 @@ function genNavImages(entries1) {
   });
 }
 
+//removes current content and updates with information in entries, removes template, sets nav img sizes
 function generateContent(img) {
-  //adds template, removes current content and updates with information in entries, removes template, sets nav img sizes
-  numImages = 0;
+  numImages = 0;  //reset and later images reconstructed in case of addition of new content
   var htmlEntries = [];  //array constructed to refresh content upon entries changes and append to page
+  $('#main').html('');
 
   if (img) {  //if img parameter was given by navImg event handler
+    $('#main').hide();
     for(var i = 0; i < entries.length; i++) {
       if (entries[i].name === img) {
-        $('#main').hide();
-        $('#main').html('');  //check necessary
         htmlEntries.push(new Entry(entries[i]));
-        htmlEntries.sort(function(a,b) {
-          return (new Date(b.date)) - (new Date(a.date));
-        });
-        htmlEntries.forEach(function(e) {
-          $('#main').append(e.toHTML());
-        });
-        genNavImages(entries);
-        $('#main').fadeIn();
       }
     };
+
+    htmlEntries.sort(function(a,b) {
+      return (new Date(b.date)) - (new Date(a.date));
+    });
+    htmlEntries.forEach(function(e) {
+      $('#main').append(e.toHTML());
+    });
+    
+    genNavImages(entries);
+    $('#main').fadeIn();
     return;
   }
   //if no navImg given
-  $('#main').html('');
   $('.nav-menu').html('');
 
   entries.forEach(function(e) {

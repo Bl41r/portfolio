@@ -27,7 +27,7 @@ function Img(name, url) {
         $thisImg = $(this);
       }
     });
-    $thisImg.on('click', function() { //todo: setTimeout here to prevent clicking too fast
+    $thisImg.on('click', function() { //todo: prevent clicking too fast?
       t.clickEvent(imgID);
     });
   };
@@ -40,10 +40,8 @@ function Img(name, url) {
   };
 }
 
-
 Entry.prototype.toHTML = function() {
-  this.publishStatus = parseInt(Math.round((new Date() - new Date(this.date))/60/60/24/1000));
-
+  this.publishedOn = parseInt(Math.round((new Date() - new Date(this.date))/60/60/24/1000));
   return Handlebars.compile($('#entry-template').html())(this);
 };
 
@@ -76,5 +74,24 @@ var entries = [
     date: '2016-07-12',
     navImg: new Img('int', 'interests.png'),
     text: 'When I\'m not coding, I have several hobbies keeping me busy.  I enjoy taking vacations, with my most recent trip being to Iceland.  It was one of the most beautiful places I have ever seen.  I also enjoy brewing beer.  I am currently fermenting a ginger beer for the first time.  For video games, I have been playing Fallout 4 and dying a lot in Dark Souls III.  I am also in one of the most in-depth fantasy football leagues ever made.'
+  },
+  {
+    name: 'code',
+    section: 'Code ex 1',
+    date: '2016-07-18',
+    navImg: new Img('code', 'fb.png'),
+    text: 'This will need to be changed to be html to show the code markup.'
+  },
+  {
+    name: 'code',
+    section: 'Code ex 2',
+    date: '2016-07-18',
+    text: 'This will need to be changed to be html to show the code markup.'
+  },
+  {
+    name: 'code',
+    section: 'Code ex 3',
+    date: '2016-07-18',
+    text: 'This will need to be changed to be html to show the code markup.'
   }
 ];
