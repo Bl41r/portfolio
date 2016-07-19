@@ -43,7 +43,7 @@ function generateContent(img) {
     htmlEntries.forEach(function(e) {
       $('#main').append(e.toHTML());
     });
-    
+
     genNavImages(entries);
     $('#main').fadeIn();
     return;
@@ -52,6 +52,9 @@ function generateContent(img) {
   $('.nav-menu').html('');
 
   entries.forEach(function(e) {
+    if (e.navImg) {
+      e.navImg = new Img(e.navImg.name, e.navImg.url);
+    }
     htmlEntries.push(new Entry(e));
   });
 
@@ -68,7 +71,7 @@ function generateContent(img) {
 
 function addNewEntry(name1, section1, text1, navImg1) {
   var date1 = new Date();
-  var entry = new Entry({name: name1, section: section1, date: date1, text: text1, navImg: navImg1});
+  var entry = new Entry({name: name1, section: section1, date: date1, html: html1, navImg: navImg1});
   entries.push(entry);
   generateContent();
   adjustNavImageSize();
@@ -92,7 +95,25 @@ window.onresize = function() {
 };
 
 function main() {
-  generateContent();
+  if (!localStorage.myPortProject) {
+    var query;
+    $.getJSON('../source/entries.json', query, function(data) {
+      localStorage.myPortProject = JSON.stringify(data);
+    });
+  }
+
+  setTimeout(function() {
+    entries = JSON.parse(localStorage.myPortProject);
+    generateContent();
+    if (window.innerWidth <= 680) {
+      $('.nav-menu').html('');
+      $('#main').accordion();
+    }
+  }, 500);
+
+  hljs.initHighlightingOnLoad();
+
+
   $('#home').on('click', function() {
     generateContent();
     if ($('#main').hasClass('ui-accordion')) {
@@ -100,10 +121,6 @@ function main() {
       $('#main').accordion();
     }
   });
-
-  if (window.innerWidth <= 680) {
-    $('#main').accordion();
-  }
 }
 
 $(document).ready(main);
