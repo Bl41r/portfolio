@@ -94,25 +94,27 @@ window.onresize = function() {
   }
 };
 
+function prepPage() {
+  entries = JSON.parse(localStorage.myPortProject);
+  generateContent();
+  if (window.innerWidth <= 680) {
+    $('.nav-menu').html('');
+    $('#main').accordion();
+  }
+}
+
 function main() {
   if (!localStorage.myPortProject) {
     var query;
     $.getJSON('../source/entries.json', query, function(data) {
       localStorage.myPortProject = JSON.stringify(data);
+      prepPage();
     });
+  } else {
+    prepPage();
   }
 
-  setTimeout(function() {
-    entries = JSON.parse(localStorage.myPortProject);
-    generateContent();
-    if (window.innerWidth <= 680) {
-      $('.nav-menu').html('');
-      $('#main').accordion();
-    }
-  }, 500);
-
   hljs.initHighlightingOnLoad();
-
 
   $('#home').on('click', function() {
     generateContent();
