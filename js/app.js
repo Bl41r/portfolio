@@ -94,11 +94,27 @@
 
     if (img) {  //if img parameter was given by navImg event handler
       $('#main').hide();
-      Entry.entries.forEach(function(e) {
+/////////////for the assignment requirements, will not keep ///////////////////
+      htmlEntries = Entry.entries.filter(function(e) {
         if (e.name === img) {
-          htmlEntries.push(new Entry(e));
+          return htmlEntries.push(e);
         }
+      })
+      .reduce(function(start, next, index, array) {
+        start.push(new Entry(next));
+        return start;
+      }, []);
+
+      htmlEntries.map(function(e) {
+        e.mapped = true;
       });
+/////////////////////////////////////////////////////////////////////////////
+      // original way
+      // Entry.entries.forEach(function(e) {
+      //   if (e.name === img) {
+      //     htmlEntries.push(new Entry(e));
+      //   }
+      // });
       sortAndAppend(htmlEntries);
       return;
     }
