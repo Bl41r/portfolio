@@ -1,6 +1,6 @@
 // Main file for portfolio
 // David Smith
-//todo:  new nav icons, add code projects (refactor)
+//todo:  new nav icons, add code projects
 ////////////////////////////////////////////////////////////////
 (function(module) {
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
@@ -73,6 +73,18 @@
     });
   }
 
+  function sortAndAppend(listEntries) {
+    listEntries.sort(function(a,b) {
+      return (new Date(b.date)) - (new Date(a.date));
+    })
+    .forEach(function(e) {
+      $('#main').append(e.toHTML());
+    });
+
+    genNavImages(Entry.entries);
+    $('#main').fadeIn();
+  }
+
   //removes current content and updates with information in entries, removes template, sets nav img sizes
   function generateContent(img) {
     numImages = 0;  //reset and later images reconstructed in case of addition of new content
@@ -86,16 +98,7 @@
           htmlEntries.push(new Entry(e));
         }
       });
-
-      htmlEntries.sort(function(a,b) {
-        return (new Date(b.date)) - (new Date(a.date));
-      });
-      htmlEntries.forEach(function(e) {
-        $('#main').append(e.toHTML());
-      });
-
-      genNavImages(Entry.entries);
-      $('#main').fadeIn();
+      sortAndAppend(htmlEntries);
       return;
     }
     //if no navImg given
@@ -107,16 +110,7 @@
       }
       htmlEntries.push(new Entry(e));
     });
-
-    htmlEntries.sort(function(a,b) {
-      return (new Date(b.date)) - (new Date(a.date));
-    });
-
-    htmlEntries.forEach(function(e) {
-      $('#main').append(e.toHTML());
-    });
-
-    genNavImages(Entry.entries);
+    sortAndAppend(htmlEntries);
   }
 // ex: window.Entry.addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
   Entry.addNewEntry = function(name1, section1, text1, navImg1) {
@@ -173,6 +167,7 @@
       }
     });
   }
+
   module.Entry = Entry;
   $(document).ready(main);
 })(window);
