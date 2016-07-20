@@ -3,6 +3,7 @@
 //todo:  new nav icons, add code projects
 ////////////////////////////////////////////////////////////////
 (function(module) {
+  var clearLocalStorageOnStart = true;  //for debugging
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
 
   // Entry object
@@ -101,9 +102,9 @@
       sortAndAppend(htmlEntries);
       return;
     }
+
     //if no navImg given
     $('.nav-menu').html('');
-
     Entry.entries.forEach(function(e) {
       if (e.navImg) {
         e.navImg = new Img(e.navImg.name, e.navImg.url);
@@ -148,6 +149,10 @@
   }
 
   function main() {
+    if (clearLocalStorageOnStart) {
+      localStorage.clear();
+    }
+
     if (!localStorage.myPortProject) {
       $.getJSON('../source/entries.json', function(data) {
         localStorage.myPortProject = JSON.stringify(data);
