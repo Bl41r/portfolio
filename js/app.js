@@ -6,7 +6,6 @@
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
 
   // Entry object
-  var entries = [];
 
   function Entry(info) {
     this.name = info.name;
@@ -18,6 +17,8 @@
       numImages++;
     }
   }
+
+  Entry.entries = [];
 
   function Img(name, url) {
     this.name = name;
@@ -56,7 +57,6 @@
   };
 
   function adjustNavImageSize() {
-    console.log('adjust nav called');
     // resizes nav images for when more populate
     var x = (450 / numImages).toString() + 'px';
     $('.nav-menu img').width(x);
@@ -64,10 +64,9 @@
     $('.nav-menu img').css('margin-left', m);
   }
 
-  // ex: addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
-  function genNavImages(entries1) {
+  function genNavImages(entries) {
     $('.nav-menu').html('');
-    entries1.forEach(function(e) {
+    entries.forEach(function(e) {
       if (e.navImg) {
         e.navImg.renderImg(e.navImg);
       }
@@ -82,11 +81,11 @@
 
     if (img) {  //if img parameter was given by navImg event handler
       $('#main').hide();
-      for(var i = 0; i < entries.length; i++) {
-        if (entries[i].name === img) {
-          htmlEntries.push(new Entry(entries[i]));
+      Entry.entries.forEach(function(e) {
+        if (e.name === img) {
+          htmlEntries.push(new Entry(e));
         }
-      };
+      });
 
       htmlEntries.sort(function(a,b) {
         return (new Date(b.date)) - (new Date(a.date));
@@ -95,14 +94,14 @@
         $('#main').append(e.toHTML());
       });
 
-      genNavImages(entries);
+      genNavImages(Entry.entries);
       $('#main').fadeIn();
       return;
     }
     //if no navImg given
     $('.nav-menu').html('');
 
-    entries.forEach(function(e) {
+    Entry.entries.forEach(function(e) {
       if (e.navImg) {
         e.navImg = new Img(e.navImg.name, e.navImg.url);
       }
@@ -117,16 +116,16 @@
       $('#main').append(e.toHTML());
     });
 
-    genNavImages(entries);
+    genNavImages(Entry.entries);
   }
-
-  function addNewEntry(name1, section1, text1, navImg1) {
+// ex: window.Entry.addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
+  Entry.addNewEntry = function(name1, section1, text1, navImg1) {
     var date1 = new Date();
     var entry = new Entry({name: name1, section: section1, date: date1, html: html1, navImg: navImg1});
-    entries.push(entry);
+    Entry.entries.push(entry);
     generateContent();
     adjustNavImageSize();
-  }
+  };
 
 
   window.onresize = function() {
@@ -138,7 +137,7 @@
       $mainID.accordion();
       $('.nav-menu').html('');
     } else {
-      genNavImages(entries);
+      genNavImages(Entry.entries);
       if ($mainID.hasClass('ui-accordion')) {
         $mainID.accordion('destroy');
       }
@@ -146,7 +145,7 @@
   };
 
   function prepPage() {
-    entries = JSON.parse(localStorage.myPortProject);
+    Entry.entries = JSON.parse(localStorage.myPortProject);
     generateContent();
     if (window.innerWidth <= 680) {
       $('.nav-menu').html('');
@@ -156,8 +155,7 @@
 
   function main() {
     if (!localStorage.myPortProject) {
-      var query;
-      $.getJSON('../source/entries.json', query, function(data) {
+      $.getJSON('../source/entries.json', function(data) {
         localStorage.myPortProject = JSON.stringify(data);
         prepPage();
       });
