@@ -1,13 +1,12 @@
 // Main file for portfolio
 // David Smith
-//todo:  new nav icons, add code projects
-////////////////////////////////////////////////////////////////
+//todo:  add code projects, check eTag, render imgs with handlebars in Img.renderImg
+////////////////////////////////////////////////////////////////////
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
 
   // Entry object
-
   function Entry(info) {
     this.name = info.name;
     this.section = info.section;
@@ -58,7 +57,6 @@
   };
 
   function adjustNavImageSize() {
-    // resizes nav images for when more populate
     var x = (450 / numImages).toString() + 'px';
     $('.nav-menu img').width(x);
     var m = (60 / numImages).toString() + 'px';
@@ -75,6 +73,7 @@
   }
 
   function sortAndAppend(listEntries) {
+    //handles repetitive content in generateContent method
     listEntries.sort(function(a,b) {
       return (new Date(b.date)) - (new Date(a.date));
     })
@@ -87,6 +86,7 @@
   }
 
   //removes current content and updates with information in entries, removes template, sets nav img sizes
+  // img argument optional, if given, content updates with content selected
   function generateContent(img) {
     numImages = 0;  //reset and later images reconstructed in case of addition of new content
     var htmlEntries = [];  //array constructed to refresh content upon entries changes and append to page
@@ -113,7 +113,7 @@
     });
     sortAndAppend(htmlEntries);
   }
-// ex: window.Entry.addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
+// ex in terminal: window.Entry.addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
   Entry.addNewEntry = function(name1, section1, text1, navImg1) {
     var date1 = new Date();
     var entry = new Entry({name: name1, section: section1, date: date1, html: html1, navImg: navImg1});
@@ -140,6 +140,7 @@
   };
 
   function prepPage() {
+    //repetitive content in main()
     Entry.entries = JSON.parse(localStorage.myPortProject);
     generateContent();
     if (window.innerWidth <= 680) {
