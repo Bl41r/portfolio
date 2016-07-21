@@ -41,7 +41,7 @@
         t.clickEvent(imgID);
       });
     };
-
+    // renderIMG will be to sortAndAppend as toHTML is to sortAndAppend
     this.renderImg = function(navImg) {
       if (navImg) {
         $('.nav-menu').append('<img src=\"img/' + navImg.url + '\" class=\"nav-icon\" id="' + navImg.name + '" /></a></li>');
@@ -79,6 +79,7 @@
     })
     .forEach(function(e) {
       $('#main').append(e.toHTML());
+      //also, append the imgs now as looping thru
     });
 
     genNavImages(Entry.entries);
