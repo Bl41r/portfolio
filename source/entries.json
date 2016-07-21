@@ -4,7 +4,7 @@
 	"date": "2016-07-12",
 	"navImg": {
 		"name": "about",
-		"url": "person.jpg"
+		"url": "person.png"
 	},
 	"html": "<p>Hello, I am David, and this is my portfolio site.  Hopefully after browsing this site, you can get a sense of who I am and where I am going.  I began making this portfolio as a student at Code Fellows in July 2016.  At Code Fellows, I am studying to become a competitive developer, and plan on working as a data analyst.  I enjoy working with data in general, and find solving problems with it fun and rewarding.</p>"
 }, {
@@ -22,7 +22,7 @@
 	"date": "2016-07-12",
 	"navImg": {
 		"name": "exp",
-		"url": "work.jpg"
+		"url": "work.png"
 	},
 	"html": "<p>Throughout my experience as a working member of society, I have worked as a cashier, a QA technician at a tire factory, and a server at many restaurants.  I am in the process of taking what I have learned and changing my career to the technology field, incorporating my education and experiences.</p>"
 }, {

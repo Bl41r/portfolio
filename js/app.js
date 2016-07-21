@@ -1,13 +1,12 @@
 // Main file for portfolio
 // David Smith
-//todo:  new nav icons, add code projects
-////////////////////////////////////////////////////////////////
+//todo:  add code projects, check eTag, render imgs with handlebars in Img.renderImg
+////////////////////////////////////////////////////////////////////
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
 
   // Entry object
-
   function Entry(info) {
     this.name = info.name;
     this.section = info.section;
@@ -30,7 +29,7 @@
       generateContent(img);
     };
 
-    this.createListener = function(imgID) { //find <img> with id matching e, add listener to it
+    this.createListener = function(imgID) {
       var $images = $('.nav-menu img');
       var $thisImg;
       $images.each(function() {
@@ -45,8 +44,8 @@
 
     this.renderImg = function(navImg) {
       if (navImg) {
-        $('.nav-menu').append('<img src=\"img/' + navImg.url + '\" class=\"nav-icon\" id="' + navImg.name + '" /></a></li>');
-        navImg.createListener(navImg.name);
+        var x = $('.nav-menu').append(Handlebars.compile($('#nav-img-template').html())(this));
+        this.createListener(navImg.name);
       }
     };
   }
@@ -58,7 +57,6 @@
   };
 
   function adjustNavImageSize() {
-    // resizes nav images for when more populate
     var x = (450 / numImages).toString() + 'px';
     $('.nav-menu img').width(x);
     var m = (60 / numImages).toString() + 'px';
@@ -75,11 +73,15 @@
   }
 
   function sortAndAppend(listEntries) {
+    //handles repetitive content in generateContent method
     listEntries.sort(function(a,b) {
       return (new Date(b.date)) - (new Date(a.date));
     })
     .forEach(function(e) {
       $('#main').append(e.toHTML());
+      if (e.navImg) {
+        $('.nav-menu').append(e.navImg.renderImg()); //also, append the imgs now as looping thru
+      }
     });
 
     genNavImages(Entry.entries);
@@ -87,6 +89,7 @@
   }
 
   //removes current content and updates with information in entries, removes template, sets nav img sizes
+  // img argument optional, if given, content updates with content selected
   function generateContent(img) {
     numImages = 0;  //reset and later images reconstructed in case of addition of new content
     var htmlEntries = [];  //array constructed to refresh content upon entries changes and append to page
@@ -94,27 +97,11 @@
 
     if (img) {  //if img parameter was given by navImg event handler
       $('#main').hide();
-/////////////for the assignment requirements, will not keep ///////////////////
-      htmlEntries = Entry.entries.filter(function(e) {
+      Entry.entries.forEach(function(e) {
         if (e.name === img) {
-          return htmlEntries.push(e);
+          htmlEntries.push(new Entry(e));
         }
-      })
-      .reduce(function(start, next, index, array) {
-        start.push(new Entry(next));
-        return start;
-      }, []);
-
-      htmlEntries.map(function(e) {
-        e.mapped = true;
       });
-/////////////////////////////////////////////////////////////////////////////
-      // original way
-      // Entry.entries.forEach(function(e) {
-      //   if (e.name === img) {
-      //     htmlEntries.push(new Entry(e));
-      //   }
-      // });
       sortAndAppend(htmlEntries);
       return;
     }
@@ -129,7 +116,7 @@
     });
     sortAndAppend(htmlEntries);
   }
-// ex: window.Entry.addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
+// ex in terminal: window.Entry.addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
   Entry.addNewEntry = function(name1, section1, text1, navImg1) {
     var date1 = new Date();
     var entry = new Entry({name: name1, section: section1, date: date1, html: html1, navImg: navImg1});
@@ -156,6 +143,7 @@
   };
 
   function prepPage() {
+    //repetitive content in main()
     Entry.entries = JSON.parse(localStorage.myPortProject);
     generateContent();
     if (window.innerWidth <= 680) {
