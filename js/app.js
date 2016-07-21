@@ -29,7 +29,7 @@
       generateContent(img);
     };
 
-    this.createListener = function(imgID) { //find <img> with id matching e, add listener to it
+    this.createListener = function(imgID) {
       var $images = $('.nav-menu img');
       var $thisImg;
       $images.each(function() {
@@ -41,11 +41,11 @@
         t.clickEvent(imgID);
       });
     };
-    // renderIMG will be to sortAndAppend as toHTML is to sortAndAppend
+
     this.renderImg = function(navImg) {
       if (navImg) {
-        $('.nav-menu').append('<img src=\"img/' + navImg.url + '\" class=\"nav-icon\" id="' + navImg.name + '" /></a></li>');
-        navImg.createListener(navImg.name);
+        var x = $('.nav-menu').append(Handlebars.compile($('#nav-img-template').html())(this));
+        this.createListener(navImg.name);
       }
     };
   }
@@ -79,7 +79,9 @@
     })
     .forEach(function(e) {
       $('#main').append(e.toHTML());
-      //also, append the imgs now as looping thru
+      if (e.navImg) {
+        $('.nav-menu').append(e.navImg.renderImg()); //also, append the imgs now as looping thru
+      }
     });
 
     genNavImages(Entry.entries);
