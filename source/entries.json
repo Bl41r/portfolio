@@ -36,14 +36,19 @@
 	"html": "<p class=\"last\">When I'm not coding, I have several hobbies keeping me busy.  I enjoy taking vacations, with my most recent trip being to Iceland.  It was one of the most beautiful places I have ever seen.  I also enjoy brewing beer.  I am currently fermenting a ginger beer for the first time.  For video games, I have been playing Fallout 4 and dying a lot in Dark Souls III.  I am also in one of the most in-depth fantasy football leagues ever made.</p>"
 }, {
 	"name": "code",
-	"section": "Code ex 1",
-	"date": "2016-07-18",
+	"section": "Pam's Salmon Cookies",
+	"date": "2016-07-15",
 	"navImg": {
 		"name": "code",
 		"url": "my_computer.png"
 	},
-	"html": "<p class=\"last\">This will need to be changed to be html to show the code markup.</p>"
-	},
+	"html": "<p class=\"last\"><a href=\"https://bl41r.github.io/cookie-stand/\"><img class=\"entry-img\" src=\"img/salmon-cookies.png\"></a>In this project, I took the role of a consultant building a website for a (fictitious) small business which requested we used every image that they supplied us, and come up with an attractive website for their company.  I also implemented a <a href=\"https://bl41r.github.io/cookie-stand/sales.html\">form</a> for the business for the company to display their sales information for the different store locations.  <a href=\"https://github.com/Bl41r/cookie-stand\">Link to GitHub repository</a></p>"
+	}, {
+		"name": "code",
+		"section": "BusMall Market Research",
+		"date": "2016-07-16",
+		"html": "<p class=\"last\"><a href=\"https://bl41r.github.io/bus_mall/\"><img class=\"entry-img\" src=\"img/busmall1.png\"><img class=\"entry-img\" src=\"img/busmall2.png\"></a>In this project, my task was to create an application that a company could use to predict the popularity of potential products that they could offer.  The fictitious company, known as \"BusMall\", is a company aimed at selling products to bus riders, similar to how SkyMall is for flyers.  After letting a user select a product from three they would be most likely to purchase, the survey results can be viewed.  The data is stored in localStorage, and accumulates as more results are processed.  I used Chart.js to display the results graph, and used the Google Charts API to display the table of information.   <a href=\"https://github.com/Bl41r/bus_mall\">Link to GitHub repository</a></p>"
+		},
 	{
 		"name": "code",
 		"section": "Marker Fix with Google Maps and Javascript",
