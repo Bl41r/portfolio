@@ -133,9 +133,9 @@
     var $mainID = $('#main');
     if (window.innerWidth <= 680) {
       generateContent();
-      $mainID.accordion({ heightStyle: "content"}); // it must be initialized, destroyed, then re-initialized to work when resizing back and forth
+      $mainID.accordion({ heightStyle: 'content'}); // it must be initialized, destroyed, then re-initialized to work when resizing back and forth
       $mainID.accordion('destroy');
-      $mainID.accordion({ heightStyle: "content"});
+      $mainID.accordion({ heightStyle: 'content'});
       $('.nav-menu').html('');
     } else {
       genNavImages(Entry.entries);
@@ -151,7 +151,7 @@
     generateContent();
     if (window.innerWidth <= 680) {
       $('.nav-menu').html('');
-      $('#main').accordion({ heightStyle: "content"});
+      $('#main').accordion({ heightStyle: 'content'});
     }
   }
 
@@ -175,7 +175,7 @@
       generateContent();
       if ($('#main').hasClass('ui-accordion')) {
         $('#main').accordion('destroy');
-        $('#main').accordion({ heightStyle: "content"});
+        $('#main').accordion({ heightStyle: 'content'});
       }
     });
   }
