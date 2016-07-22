@@ -64,3 +64,7 @@ a:hover {
   color: yellow;
   cursor: pointer;
 }
+
+.entry-img {
+  width: 100%;
+}
