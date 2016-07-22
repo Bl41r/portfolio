@@ -43,6 +43,10 @@
   color: white;
 }
 
+p.last {
+  margin-bottom: 5em;
+}
+
 #social {
   position: fixed;
   top: 10%;
