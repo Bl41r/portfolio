@@ -12,6 +12,17 @@
   display: block;
 }
 
+.ext-icon {
+  max-width: 32px;
+  position: relative;
+  display: block;
+}
+
+.ext-icon:hover{
+  background-color: #ddd;
+}
+
+
 
 .nav-menu li {
   display: none;
@@ -27,8 +38,9 @@
 }
 
 .nav-icon:hover {
-  border-radius: 100%;
-  border: 1px dashed black;
+  /*border-radius: 100%;
+  border: 1px dashed black;*/
+  background-color: #ddd;
 }
 
 .sub-headings {

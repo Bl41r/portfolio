@@ -27,6 +27,7 @@
 
     this.clickEvent = function(img) {
       generateContent(img);
+
     };
 
     this.createListener = function(imgID) {
@@ -39,6 +40,9 @@
       });
       $thisImg.on('click', function() { //todo: prevent clicking too fast?
         t.clickEvent(imgID);
+        // call function to remove classes and add class to clicked here
+        // ourFunction($thisImg);
+        applyBackground(imgID);
       });
     };
 
@@ -48,6 +52,11 @@
         this.createListener(navImg.name);
       }
     };
+  }
+
+  function applyBackground(imgID) {
+    $('.nav-icon').removeClass('grey-bg');
+    $('#' + imgID).addClass('grey-bg');
   }
 
   Entry.prototype.toHTML = function() {
