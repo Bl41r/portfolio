@@ -6,7 +6,7 @@
 		"name": "about",
 		"url": "person.png"
 	},
-	"html": "<p>Hello, I am David, and this is my portfolio site.  Hopefully after browsing this site, you can get a sense of who I am and where I am going.  I began making this portfolio as a student at Code Fellows in July 2016.  At Code Fellows, I am studying to become a competitive developer, and plan on working as a data analyst.  I enjoy working with data in general, and find solving problems with it fun and rewarding.</p>"
+	"html": "<p class=\"last\">Hello, I am David, and this is my portfolio site.  Hopefully after browsing this site, you can get a sense of who I am and where I am going.  I began making this portfolio as a student at Code Fellows in July 2016.  At Code Fellows, I am studying to become a competitive developer, and plan on working as a data analyst.  I enjoy working with data in general, and find solving problems with it fun and rewarding.</p>"
 }, {
 	"name": "edu",
 	"section": "Education",
@@ -15,7 +15,7 @@
 		"name": "edu",
 		"url": "edu.png"
 	},
-	"html": "<p>I graduated in 2015 with a B.S. in chemistry and a B.A. in biochemistry from the University of Washington.  My favorite subjects were chemical biology, quantitative analysis, and statistical mechanics.  I joined Code Fellows in the summer of 2016, and am currently on track to learn Python.  If you click on my GitHub link at the top of the page, you can see some of the projects that I have been working on.</p>"
+	"html": "<p class=\"last\">I graduated in 2015 with a B.S. in chemistry and a B.A. in biochemistry from the University of Washington.  My favorite subjects were chemical biology, quantitative analysis, and statistical mechanics.  I joined Code Fellows in the summer of 2016, and am currently on track to learn Python.  If you click on my GitHub link at the top of the page, you can see some of the projects that I have been working on.</p>"
 }, {
 	"name": "exp",
 	"section": "Experience",
@@ -24,7 +24,7 @@
 		"name": "exp",
 		"url": "work.png"
 	},
-	"html": "<p>Throughout my experience as a working member of society, I have worked as a cashier, a QA technician at a tire factory, and a server at many restaurants.  I am in the process of taking what I have learned and changing my career to the technology field, incorporating my education and experiences.</p>"
+	"html": "<p class=\"last\">Throughout my experience as a working member of society, I have worked as a cashier, a QA technician at a tire factory, and a server at many restaurants.  I am in the process of taking what I have learned and changing my career to the technology field, incorporating my education and experiences.</p>"
 }, {
 	"name": "int",
 	"section": "Interests",
@@ -33,7 +33,7 @@
 		"name": "int",
 		"url": "interests.png"
 	},
-	"html": "<p>When I'm not coding, I have several hobbies keeping me busy.  I enjoy taking vacations, with my most recent trip being to Iceland.  It was one of the most beautiful places I have ever seen.  I also enjoy brewing beer.  I am currently fermenting a ginger beer for the first time.  For video games, I have been playing Fallout 4 and dying a lot in Dark Souls III.  I am also in one of the most in-depth fantasy football leagues ever made.</p>"
+	"html": "<p class=\"last\">When I'm not coding, I have several hobbies keeping me busy.  I enjoy taking vacations, with my most recent trip being to Iceland.  It was one of the most beautiful places I have ever seen.  I also enjoy brewing beer.  I am currently fermenting a ginger beer for the first time.  For video games, I have been playing Fallout 4 and dying a lot in Dark Souls III.  I am also in one of the most in-depth fantasy football leagues ever made.</p>"
 }, {
 	"name": "code",
 	"section": "Code ex 1",
@@ -42,15 +42,18 @@
 		"name": "code",
 		"url": "my_computer.png"
 	},
-	"html": "<p>This will need to be changed to be html to show the code markup.</p>"
-}, {
-	"name": "code",
-	"section": "Code ex 2",
-	"date": "2016-07-18",
-	"html": "<p>This will need to be changed to be html to show the code markup.<pre><code>def helloWorld():  print(\"Hello, World!\")</code></pre></p>"
-}, {
-	"name": "code",
-	"section": "Code ex 3",
-	"date": "2016-07-18",
-	"html": "<p>This will need to be changed to be html to show the code markup.</p>"
-}]
+	"html": "<p class=\"last\">This will need to be changed to be html to show the code markup.</p>"
+	},
+	{
+		"name": "code",
+		"section": "Marker Fix with Google Maps and Javascript",
+		"date": "2016-07-18",
+		"html": "<p>This function is one that I created for my Eat Fellows project, which solves the problem of multiple google map markers at the same location.  It takes in an array of google map markers (not all of them must match a single location), and basically finds the markers with the same locations, and arranges them around a square grid, allowing up to 9 locations to be displayed which inhabit the same spot on the map.</p>\n<pre><code>function offsetDuplicates(listOfMarkers) {\n  var d = 0.00015; //Amount lat/lng to offset by\n  var scale = 1.5;  //scale used to adjust difference between lat/long appearanceon 2d map\n  var offsets = [[d / scale, 0],[0, d],[-d / scale, 0],[0, -d],[d / scale, d],[-d / scale, d],[-d / scale, -d],[d / scale, -d]];\n  var rMarkers = [];\n  var newEntry = true;\n  //create 2-d array of matching markerList marker indices\n  for (var i = 0; i &lt; listOfMarkers.length; i++) {\n    var tmp = [];\n    tmp.push(i);\n    for (var j = 0; j &lt; listOfMarkers.length; j++) {\n      if (listOfMarkers[i].getPosition().toString() === listOfMarkers[j].getPosition().toString() &amp;&amp; i != j) {\n        tmp.push(j);\n      }\n    }\n    tmp = tmp.sort();\n    rMarkers.push(tmp);\n  }\n  //remove unique marker arrays\n  for (var k = 0; k &lt; rMarkers.length; k++) {\n    if (rMarkers[k].length === 1) {\n      rMarkers.splice(k, 1);\n      k--;\n    }\n  }\n  //remove duplicates of match arrays\n  for (var l = 0; l &lt; rMarkers.length; l++) {\n    for (var m = 0; m &lt; rMarkers.length; m++) {\n      if (JSON.stringify(rMarkers[l]) === JSON.stringify(rMarkers[m]) &amp;&amp; l != m) {\n        rMarkers.splice(m, 1);\n        m--;\n      }\n    }\n  }\n\n// apply loc offsets to markers with same location\n  var x, y;\n  for (var k = 0; k &lt; rMarkers.length; k++){\n    for (var l = 1; l &lt; rMarkers[k].length; l++) {\n      x = listOfMarkers[rMarkers[k][l]].getPosition().lat();\n      y = listOfMarkers[rMarkers[k][l]].getPosition().lng();\n      x += offsets[l][0];\n      y += offsets[l][1];\n      var point = new google.maps.LatLng(x,y);\n      listOfMarkers[rMarkers[k][l]].setPosition(point);\n    }\n  }\n  return listOfMarkers;\n}\n</code></pre><p class=\"last\">As you can see, there are many nested loops which can be refactored in the future.  This was part of one of the first projects I had while learning JavaScript.\n<a href=\"https://github.com/Bl41r/eat_fellows/blob/master/js/markerfix.js\">Link to GitHub file</a></p>"
+	},
+	{
+		"name": "code",
+		"section": "Code ex 3",
+		"date": "2016-07-18",
+		"html": "<p class=\"last\">This will need to be changed to be html to show the code markup.</p>"
+	}
+]

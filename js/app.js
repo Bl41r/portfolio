@@ -1,6 +1,6 @@
 // Main file for portfolio
 // David Smith
-//todo:  add code projects, check eTag, render imgs with handlebars in Img.renderImg
+//todo:  add code projects, check eTag
 ////////////////////////////////////////////////////////////////////
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
@@ -79,6 +79,9 @@
     })
     .forEach(function(e) {
       $('#main').append(e.toHTML());
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
       if (e.navImg) {
         $('.nav-menu').append(e.navImg.renderImg()); //also, append the imgs now as looping thru
       }
@@ -130,9 +133,9 @@
     var $mainID = $('#main');
     if (window.innerWidth <= 680) {
       generateContent();
-      $mainID.accordion(); // it must be initialized, destroyed, then re-initialized to work when resizing back and forth
+      $mainID.accordion({ heightStyle: 'content'}); // it must be initialized, destroyed, then re-initialized to work when resizing back and forth
       $mainID.accordion('destroy');
-      $mainID.accordion();
+      $mainID.accordion({ heightStyle: 'content'});
       $('.nav-menu').html('');
     } else {
       genNavImages(Entry.entries);
@@ -148,7 +151,7 @@
     generateContent();
     if (window.innerWidth <= 680) {
       $('.nav-menu').html('');
-      $('#main').accordion();
+      $('#main').accordion({ heightStyle: 'content'});
     }
   }
 
@@ -172,7 +175,7 @@
       generateContent();
       if ($('#main').hasClass('ui-accordion')) {
         $('#main').accordion('destroy');
-        $('#main').accordion();
+        $('#main').accordion({ heightStyle: 'content'});
       }
     });
   }

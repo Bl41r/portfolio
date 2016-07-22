@@ -83,3 +83,7 @@ h3 {
 img:hover {
 	cursor: pointer;
 }
+
+pre {
+	text-align: left;
+}
