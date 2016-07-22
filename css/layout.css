@@ -12,11 +12,6 @@
   display: block;
 }
 
-#home {
-  max-width: 32px;
-  position: relative;
-  display: block;
-}
 
 .nav-menu li {
   display: none;
@@ -31,6 +26,11 @@
   margin-left: 1em;
 }
 
+.nav-icon:hover {
+  border-radius: 100%;
+  border: 1px dashed black;
+}
+
 .sub-headings {
   margin: 0 auto .1em auto;
 }
@@ -39,12 +39,22 @@ p.last {
   margin-bottom: 2em;
 }
 
+.entry-img {
+  width: 100%;
+}
+
 #main {
   text-align: center;
   margin: 1% 12%;
   padding: 2% 4%;
   background-color: #384038;
   color: white;
+}
+
+#home {
+  max-width: 32px;
+  position: relative;
+  display: block;
 }
 
 #social {
