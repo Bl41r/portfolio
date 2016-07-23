@@ -40,8 +40,6 @@
       });
       $thisImg.on('click', function() { //todo: prevent clicking too fast?
         t.clickEvent(imgID);
-        // call function to remove classes and add class to clicked here
-        // ourFunction($thisImg);
         applyBackground(imgID);
       });
     };
@@ -55,6 +53,7 @@
   }
 
   function applyBackground(imgID) {
+    //adds background highlight to selected nav image
     $('.nav-icon').removeClass('grey-bg');
     $('#' + imgID).addClass('grey-bg');
   }
