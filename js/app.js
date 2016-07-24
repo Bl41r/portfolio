@@ -1,6 +1,6 @@
 // Main file for portfolio
 // David Smith
-//todo:  add code projects, check eTag
+//todo:  check eTag,
 ////////////////////////////////////////////////////////////////////
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
@@ -40,8 +40,6 @@
       });
       $thisImg.on('click', function() { //todo: prevent clicking too fast?
         t.clickEvent(imgID);
-        // call function to remove classes and add class to clicked here
-        // ourFunction($thisImg);
         applyBackground(imgID);
       });
     };
@@ -55,6 +53,7 @@
   }
 
   function applyBackground(imgID) {
+    //adds background highlight to selected nav image
     $('.nav-icon').removeClass('grey-bg');
     $('#' + imgID).addClass('grey-bg');
   }
@@ -141,13 +140,12 @@
   window.onresize = function() {
     var $mainID = $('#main');
     if (window.innerWidth <= 680) {
-      generateContent();
-      $mainID.accordion({ heightStyle: 'content'}); // it must be initialized, destroyed, then re-initialized to work when resizing back and forth
+      $mainID.accordion(); // it must be initialized, destroyed, then re-initialized to work when resizing back and forth
       $mainID.accordion('destroy');
       $mainID.accordion({ heightStyle: 'content'});
-      $('.nav-menu').html('');
+      $('.nav-menu').hide();
     } else {
-      genNavImages(Entry.entries);
+      $('.nav-menu').show();
       if ($mainID.hasClass('ui-accordion')) {
         $mainID.accordion('destroy');
       }
