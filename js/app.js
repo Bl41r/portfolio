@@ -1,6 +1,6 @@
 // Main file for portfolio
 // David Smith
-//todo:  check eTag,
+//todo:
 ////////////////////////////////////////////////////////////////////
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
@@ -117,7 +117,7 @@
       return;
     }
 
-    //if no nav img clicked
+    //if no nav img clicked (generated at beginning)
     $('.nav-menu').html('');
     Entry.entries.forEach(function(e) {
       if (e.navImg) {
