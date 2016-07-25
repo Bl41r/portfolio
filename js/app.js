@@ -160,6 +160,30 @@
       $('.nav-menu').html('');
       $('#main').accordion({ heightStyle: 'content'});
     }
+    hljs.initHighlightingOnLoad();
+  }
+
+  function getEntryData(nextFunction) {
+    $.getJSON('../source/entries.json', function(responseData) {
+      localStorage.myPortProject = JSON.stringify(responseData);
+      nextFunction();
+    });
+  }
+
+  function retrieveHeader(nextFunction) {
+    $.ajax({
+      type: 'HEAD',
+      url: '../source/entries.json',
+      success: function(data, message, xhr) {
+        var eTag = xhr.getResponseHeader('eTag');
+        if (!localStorage.eTag || eTag !== localStorage.eTag) {
+          localStorage.eTag = eTag;
+          getEntryData(nextFunction);
+        } else {
+          nextFunction();
+        }
+      }
+    });
   }
 
   function main() {
@@ -167,16 +191,7 @@
       localStorage.clear();
     }
 
-    if (!localStorage.myPortProject) {
-      $.getJSON('../source/entries.json', function(data) {
-        localStorage.myPortProject = JSON.stringify(data);
-        prepPage();
-      });
-    } else {
-      prepPage();
-    }
-
-    hljs.initHighlightingOnLoad();
+    retrieveHeader(prepPage);
 
     $('#home').on('click', function() {
       generateContent();
