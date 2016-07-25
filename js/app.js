@@ -104,7 +104,7 @@
   function generateContent(img) {
     numImages = 0;  //reset and later images reconstructed in case of addition of new content
     var htmlEntries = [];  //array constructed to refresh content upon entries changes and append to page
-    $('#main').html('');
+    $('#main').html('');  //remove content
 
     if (img) {  //if img parameter was given by navImg event handler
       $('#main').hide();
@@ -117,7 +117,7 @@
       return;
     }
 
-    //if no navImg given
+    //if no nav img clicked
     $('.nav-menu').html('');
     Entry.entries.forEach(function(e) {
       if (e.navImg) {
