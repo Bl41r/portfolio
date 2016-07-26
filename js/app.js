@@ -5,7 +5,6 @@
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
-  var firstTime = true;
 
   // Entry object
   function Entry(info) {
@@ -113,7 +112,6 @@
       sortAndAppend(htmlEntries);
       return;
     }
-
     //if no nav img clicked (generated at beginning)
     $('.nav-menu').html('');
     Entry.entries.forEach(function(e) {
@@ -126,10 +124,6 @@
       }
       htmlEntries.push(new Entry(e));
     });
-    if (firstTime) {
-      page();
-      firstTime = false;
-    }
     sortAndAppend(htmlEntries);
   }
 // ex in terminal: window.Entry.addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
@@ -160,7 +154,7 @@
   function prepPage() {
     //repetitive content in main()
     Entry.entries = JSON.parse(localStorage.myPortProject);
-    generateContent();
+    generateContent();  //****************1
     if (window.innerWidth <= 680) {
       $('.nav-menu').html('');
       $('#main').accordion({ heightStyle: 'content'});
@@ -203,12 +197,12 @@
     if (clearLocalStorageOnStart) {
       localStorage.clear();
     }
-
     retrieveHeader(prepPage);
     $('#home').on('click', handleHome);
   }
 
   module.Entry = Entry;
   page('/', handleHome);
+  page();
   $(document).ready(main);
 })(window);
