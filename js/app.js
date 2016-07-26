@@ -5,6 +5,7 @@
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
+  var firstTime = true;
 
   // Entry object
   function Entry(info) {
@@ -27,7 +28,6 @@
 
     this.clickEvent = function(img) {
       generateContent(img);
-
     };
 
     this.createListener = function(imgID) {
@@ -37,10 +37,6 @@
         if ($(this).attr('id') === imgID) {
           $thisImg = $(this);
         }
-      });
-      $thisImg.on('click', function() { //todo: prevent clicking too fast?
-        t.clickEvent(imgID);
-        applyBackground(imgID);
       });
     };
 
@@ -82,6 +78,7 @@
 
   function sortAndAppend(listEntries) {
     //handles repetitive content in generateContent method
+    $('#main').hide();
     listEntries.sort(function(a,b) {
       return (new Date(b.date)) - (new Date(a.date));
     })
@@ -122,9 +119,17 @@
     Entry.entries.forEach(function(e) {
       if (e.navImg) {
         e.navImg = new Img(e.navImg.name, e.navImg.url);
+        page('/' + e.navImg.name, function() {
+          e.navImg.clickEvent(e.navImg.name);
+          applyBackground(e.navImg.name);
+        });
       }
       htmlEntries.push(new Entry(e));
     });
+    if (firstTime) {
+      page();
+      firstTime = false;
+    }
     sortAndAppend(htmlEntries);
   }
 // ex in terminal: window.Entry.addNewEntry('hello', 'test-header', 'content goes here', new Img('hello', 'fb.png'));
@@ -200,12 +205,10 @@
     }
 
     retrieveHeader(prepPage);
-
     $('#home').on('click', handleHome);
   }
 
   module.Entry = Entry;
   page('/', handleHome);
-  page();
   $(document).ready(main);
 })(window);
