@@ -19,19 +19,19 @@
 		</script>
 
 		<script id="nav-img-template" type="text/x-handlebars-template">
-			<li><img src="img/{{ url }}" class="nav-icon" id="{{ name }}" title="{{ name }}"/></a></li>
+			<li><img src="img/{{ url }}" class="nav-icon" id="{{ name }}" title="{{ name }}" href="/{{ name }}"/></a></li>
 		</script>
 
 	</head>
 	<body>
     <header>
       <h1 class="main-heading">DAVID SMITH</h1>
-      <img src="img/mewlemur.jpg" class="my-pic"/>
+      <!-- <img src="img/mewlemur.jpg" class="my-pic"/> -->
       <br>
       <div id="social">
         <a href="mailto:dbsmith.dbs83@gmail.com"><img src="img/mail.png" class="ext-icon"></a>
         <a href="http://www.github.com/bl41r/"><img src="img/github64px.png" class="ext-icon"/></a>
-				<img src="img/home.png" class="ext-icon" id="home"/>
+				<a href="/"><img src="img/home.png" class="ext-icon" id="home"/></a>
       </div>
       <br>
       <ul class="nav-menu">
@@ -45,6 +45,7 @@
 		<script src="js/marked.js"></script>
 		<script src="js/highlight.pack.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+		<script src="js/page.js"></script>
     <script src="js/app.js"></script>
 	</body>
 </html>

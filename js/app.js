@@ -186,6 +186,14 @@
     });
   }
 
+  function handleHome() {
+    generateContent();
+    if ($('#main').hasClass('ui-accordion')) {
+      $('#main').accordion('destroy');
+      $('#main').accordion({ heightStyle: 'content'});
+    }
+  }
+
   function main() {
     if (clearLocalStorageOnStart) {
       localStorage.clear();
@@ -193,15 +201,11 @@
 
     retrieveHeader(prepPage);
 
-    $('#home').on('click', function() {
-      generateContent();
-      if ($('#main').hasClass('ui-accordion')) {
-        $('#main').accordion('destroy');
-        $('#main').accordion({ heightStyle: 'content'});
-      }
-    });
+    $('#home').on('click', handleHome);
   }
 
   module.Entry = Entry;
+  page('/', handleHome);
+  page();
   $(document).ready(main);
 })(window);

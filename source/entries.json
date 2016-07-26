@@ -1,9 +1,9 @@
 [{
-	"name": "About Me",
-	"section": "About Me",
+	"name": "About",
+	"section": "About",
 	"date": "2016-07-12",
 	"navImg": {
-		"name": "About Me",
+		"name": "About",
 		"url": "person.png"
 	},
 	"html": "<p class=\"last\">Hello, I am David, and this is my portfolio site.  Hopefully after browsing this site, you can get a sense of who I am and where I am going.  I began making this portfolio as a student at Code Fellows in July 2016.  At Code Fellows, I am studying to become a competitive developer, and plan on working as a data analyst.  I enjoy working with data in general, and find solving problems with it fun and rewarding.</p>"
