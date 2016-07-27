@@ -5,6 +5,24 @@
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
+  var reposObj = {};
+  reposObj.myRepos = [];
+
+  reposObj.requestRepos = function(callback) {
+    $.ajax({
+      url: 'https://api.github.com/users/Bl41r/repos' +
+         '?per_page=10' +
+         '&sort=update',
+      type: 'GET',
+      headers: {
+        'Authorization': 'token ' + githubToken,
+      },
+      success: function(data, message, xhr) {
+        reposObj.allRepos = data;
+        console.log(data);
+      }
+    });
+  };
 
   // Entry object
   function Entry(info) {
