@@ -1,6 +1,6 @@
 // Main file for portfolio
 // David Smith
-//todo:  check eTag,
+//todo:
 ////////////////////////////////////////////////////////////////////
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
@@ -16,9 +16,40 @@
       this.navImg = info.navImg;
       numImages++;
     }
+    if (info.projID) {
+      this.projID = info.projID;
+      this.created_at = info.created_at;
+    }
   }
 
   Entry.entries = [];
+  Entry.reposObj = {};
+  Entry.reposObj.myRepos = [];
+
+  Entry.reposObj.requestRepos = function(nextFunction1, nextFunction2) {
+    $.ajax({
+      url: 'https://api.github.com/users/Bl41r/repos' +
+         '?per_page=0' +
+         '&sort=update',
+      type: 'GET',
+      headers: {
+        'Authorization': 'token ' + githubToken,
+      },
+      success: function(data, message, xhr) {
+        Entry.reposObj.myRepos = data;
+        console.log(data);
+        localStorage.myPortProjectRepos = JSON.stringify(data);
+        Entry.reposObj.myRepos = data;
+        nextFunction1(nextFunction2);
+      }
+    });
+  };
+
+  Entry.reposObj.withTheAttribute = function(myAttr) {
+    return Entry.reposObj.myRepos.filter(function(aRepo) {
+      return aRepo[myAttr];
+    });
+  };
 
   function Img(name, url) {
     this.name = name;
@@ -27,7 +58,6 @@
 
     this.clickEvent = function(img) {
       generateContent(img);
-
     };
 
     this.createListener = function(imgID) {
@@ -37,10 +67,6 @@
         if ($(this).attr('id') === imgID) {
           $thisImg = $(this);
         }
-      });
-      $thisImg.on('click', function() { //todo: prevent clicking too fast?
-        t.clickEvent(imgID);
-        applyBackground(imgID);
       });
     };
 
@@ -82,6 +108,7 @@
 
   function sortAndAppend(listEntries) {
     //handles repetitive content in generateContent method
+    $('#main').hide();
     listEntries.sort(function(a,b) {
       return (new Date(b.date)) - (new Date(a.date));
     })
@@ -104,7 +131,7 @@
   function generateContent(img) {
     numImages = 0;  //reset and later images reconstructed in case of addition of new content
     var htmlEntries = [];  //array constructed to refresh content upon entries changes and append to page
-    $('#main').html('');
+    $('#main').html('');  //remove content
 
     if (img) {  //if img parameter was given by navImg event handler
       $('#main').hide();
@@ -116,12 +143,15 @@
       sortAndAppend(htmlEntries);
       return;
     }
-
-    //if no navImg given
+    //if no nav img clicked (generated at beginning)
     $('.nav-menu').html('');
     Entry.entries.forEach(function(e) {
       if (e.navImg) {
         e.navImg = new Img(e.navImg.name, e.navImg.url);
+        page('/' + e.navImg.name, function() {
+          e.navImg.clickEvent(e.navImg.name);
+          applyBackground(e.navImg.name);
+        });
       }
       htmlEntries.push(new Entry(e));
     });
@@ -153,11 +183,57 @@
   };
 
   function prepPage() {
-    //repetitive content in main()
+    //repetitive content was in main()
     Entry.entries = JSON.parse(localStorage.myPortProject);
+    Entry.reposObj.myRepos = JSON.parse(localStorage.myPortProjectRepos);
+    linkRepos();
     generateContent();
     if (window.innerWidth <= 680) {
       $('.nav-menu').html('');
+      $('#main').accordion({ heightStyle: 'content'});
+    }
+    hljs.initHighlightingOnLoad();
+  }
+
+  function linkRepos() {
+    Entry.entries.forEach(function(e){
+      if (e.projID) {
+        Entry.reposObj.myRepos.forEach(function(r){
+          if (e.projID === r.id) {
+            e.created_at = r.created_at;
+          }
+        });
+      }
+    });
+  }
+
+  function getEntryData(nextFunction) {
+    $.getJSON('../source/entries.json', function(responseData) {
+      localStorage.myPortProject = JSON.stringify(responseData);
+      nextFunction();
+    });
+  }
+
+  function retrieveHeader(nextFunction) {
+    $.ajax({
+      type: 'HEAD',
+      url: '../source/entries.json',
+      success: function(data, message, xhr) {
+        var eTag = xhr.getResponseHeader('eTag');
+        if (!localStorage.eTag || eTag !== localStorage.eTag) {
+          localStorage.eTag = eTag;
+          Entry.reposObj.requestRepos(getEntryData, nextFunction);
+        } else {
+          nextFunction();
+        }
+      }
+    });
+  }
+
+  function handleHome() {
+    generateContent();
+    if ($('#main').hasClass('ui-accordion')) {
+      $('#main').accordion('destroy');
       $('#main').accordion({ heightStyle: 'content'});
     }
   }
@@ -166,27 +242,12 @@
     if (clearLocalStorageOnStart) {
       localStorage.clear();
     }
-
-    if (!localStorage.myPortProject) {
-      $.getJSON('../source/entries.json', function(data) {
-        localStorage.myPortProject = JSON.stringify(data);
-        prepPage();
-      });
-    } else {
-      prepPage();
-    }
-
-    hljs.initHighlightingOnLoad();
-
-    $('#home').on('click', function() {
-      generateContent();
-      if ($('#main').hasClass('ui-accordion')) {
-        $('#main').accordion('destroy');
-        $('#main').accordion({ heightStyle: 'content'});
-      }
-    });
+    retrieveHeader(prepPage);
+    $('#home').on('click', handleHome);
   }
 
   module.Entry = Entry;
+  page('/', handleHome);
+  page();
   $(document).ready(main);
 })(window);

@@ -8,29 +8,35 @@
     <link type="text/css" rel="stylesheet" href="css/modules.css"/>
     <link type="text/css" rel="stylesheet" href="css/jquery-ui.min.css" />
 		<link type="text/css" rel="stylesheet" href="css/default.css" />
+		<link rel="icon" href="img/person.png">
     <title>David's Blog</title>
 
 		<script id="entry-template" type="text/x-handlebars-template">
 			<h3 class="sub-headings"><a class="anchor" name="{{ name }}"></a>{{ section }}</h3>
 			<div><time pubdate title="{{ date }}">Published {{ publishedOn }} days ago</time>
+				{{#if projID}}
+				<p class="repo">Repo created at: {{ created_at }}</p>
+				{{/if}}
 				{{{ html }}}
 			</div>
 		</script>
 
 		<script id="nav-img-template" type="text/x-handlebars-template">
-			<li><img src="img/{{ url }}" class="nav-icon" id="{{ name }}"/></a></li>
+			<li>
+				<a href="/{{ name }}"><img src="img/{{ url }}" class="nav-icon" id="{{ name }}" title="{{ name }}"/></a>
+			</li>
 		</script>
 
 	</head>
 	<body>
     <header>
       <h1 class="main-heading">DAVID SMITH</h1>
-      <!-- <img src="img/mewlemur.jpg" class="my-pic"/> -->
+      <img src="img/mewlemur.jpg" class="my-pic"/>
       <br>
       <div id="social">
         <a href="mailto:dbsmith.dbs83@gmail.com"><img src="img/mail.png" class="ext-icon"></a>
         <a href="http://www.github.com/bl41r/"><img src="img/github64px.png" class="ext-icon"/></a>
-				<img src="img/home.png" class="ext-icon" id="home"/>
+				<a href="/"><img src="img/home.png" class="ext-icon" id="home"/></a>
       </div>
       <br>
       <ul class="nav-menu">
@@ -39,11 +45,13 @@
     <div id="main">
     </div>
     <footer></footer>
-    <script src="js/jquery-3.0.0.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-		<script src="js/marked.js"></script>
-		<script src="js/highlight.pack.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+    <script src="js/vendor/jquery-3.0.0.js"></script>
+    <script src="js/vendor/jquery-ui.min.js"></script>
+		<script src="js/vendor/marked.js"></script>
+		<script src="js/vendor/highlight.pack.js"></script>
+		<script src="js/vendor/handlebars.js"></script>
+		<script src="js/vendor/page.js"></script>
+		<script src="token.js"></script>
     <script src="js/app.js"></script>
 	</body>
 </html>
