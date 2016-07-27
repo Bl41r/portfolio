@@ -185,6 +185,7 @@
   function prepPage() {
     //repetitive content was in main()
     Entry.entries = JSON.parse(localStorage.myPortProject);
+    Entry.reposObj.myRepos = JSON.parse(localStorage.myPortProjectRepos);
     linkRepos();
     generateContent();
     if (window.innerWidth <= 680) {
