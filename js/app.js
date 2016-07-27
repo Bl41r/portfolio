@@ -34,6 +34,8 @@
       success: function(data, message, xhr) {
         Entry.reposObj.myRepos = data;
         console.log(data);
+        localStorage.myPortProjectRepos = JSON.stringify(data);
+        Entry.reposObj.myRepos = data;
         if (nextFunction) {nextFunction();};
       }
     });
