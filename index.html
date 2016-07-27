@@ -14,12 +14,17 @@
 		<script id="entry-template" type="text/x-handlebars-template">
 			<h3 class="sub-headings"><a class="anchor" name="{{ name }}"></a>{{ section }}</h3>
 			<div><time pubdate title="{{ date }}">Published {{ publishedOn }} days ago</time>
+				{{#if projID}}
+				<p class="repo">Repo created at: {{ created_at }}</p>
+				{{/if}}
 				{{{ html }}}
 			</div>
 		</script>
 
 		<script id="nav-img-template" type="text/x-handlebars-template">
-			<li><a href="/{{ name }}"><img src="img/{{ url }}" class="nav-icon" id="{{ name }}" title="{{ name }}"/></a></li>
+			<li>
+				<a href="/{{ name }}"><img src="img/{{ url }}" class="nav-icon" id="{{ name }}" title="{{ name }}"/></a>
+			</li>
 		</script>
 
 	</head>

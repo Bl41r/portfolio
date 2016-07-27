@@ -73,3 +73,8 @@
 .grey-bg {
   background-color: #ddd;
 }
+
+.repo {
+  font-size: 100%;
+  margin-bottom: 1em;
+}

@@ -16,13 +16,17 @@
       this.navImg = info.navImg;
       numImages++;
     }
+    if (info.projID) {
+      this.projID = info.projID;
+      this.created_at = info.created_at;
+    }
   }
 
   Entry.entries = [];
   Entry.reposObj = {};
   Entry.reposObj.myRepos = [];
 
-  Entry.reposObj.requestRepos = function(nextFunction) {
+  Entry.reposObj.requestRepos = function(nextFunction1, nextFunction2) {
     $.ajax({
       url: 'https://api.github.com/users/Bl41r/repos' +
          '?per_page=0' +
@@ -36,13 +40,13 @@
         console.log(data);
         localStorage.myPortProjectRepos = JSON.stringify(data);
         Entry.reposObj.myRepos = data;
-        if (nextFunction) {nextFunction();};
+        nextFunction1(nextFunction2);
       }
     });
   };
 
   Entry.reposObj.withTheAttribute = function(myAttr) {
-    return Entry.reposObj.allRepos.filter(function(aRepo) {
+    return Entry.reposObj.myRepos.filter(function(aRepo) {
       return aRepo[myAttr];
     });
   };
@@ -179,14 +183,27 @@
   };
 
   function prepPage() {
-    //repetitive content in main()
+    //repetitive content was in main()
     Entry.entries = JSON.parse(localStorage.myPortProject);
+    linkRepos();
     generateContent();
     if (window.innerWidth <= 680) {
       $('.nav-menu').html('');
       $('#main').accordion({ heightStyle: 'content'});
     }
     hljs.initHighlightingOnLoad();
+  }
+
+  function linkRepos() {
+    Entry.entries.forEach(function(e){
+      if (e.projID) {
+        Entry.reposObj.myRepos.forEach(function(r){
+          if (e.projID === r.id) {
+            e.created_at = r.created_at;
+          }
+        });
+      }
+    });
   }
 
   function getEntryData(nextFunction) {
@@ -204,7 +221,7 @@
         var eTag = xhr.getResponseHeader('eTag');
         if (!localStorage.eTag || eTag !== localStorage.eTag) {
           localStorage.eTag = eTag;
-          Entry.reposObj.requestRepos(getEntryData(nextFunction));
+          Entry.reposObj.requestRepos(getEntryData, nextFunction);
         } else {
           nextFunction();
         }
