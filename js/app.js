@@ -5,24 +5,6 @@
 (function(module) {
   var clearLocalStorageOnStart = true;  //for debugging
   var numImages = 0;  //used to calc nav img sizes, ++ in Entry constructor
-  var reposObj = {};
-  reposObj.myRepos = [];
-
-  reposObj.requestRepos = function(callback) {
-    $.ajax({
-      url: 'https://api.github.com/users/Bl41r/repos' +
-         '?per_page=10' +
-         '&sort=update',
-      type: 'GET',
-      headers: {
-        'Authorization': 'token ' + githubToken,
-      },
-      success: function(data, message, xhr) {
-        reposObj.allRepos = data;
-        console.log(data);
-      }
-    });
-  };
 
   // Entry object
   function Entry(info) {
@@ -37,6 +19,31 @@
   }
 
   Entry.entries = [];
+  Entry.reposObj = {};
+  Entry.reposObj.myRepos = [];
+
+  Entry.reposObj.requestRepos = function(nextFunction) {
+    $.ajax({
+      url: 'https://api.github.com/users/Bl41r/repos' +
+         '?per_page=0' +
+         '&sort=update',
+      type: 'GET',
+      headers: {
+        'Authorization': 'token ' + githubToken,
+      },
+      success: function(data, message, xhr) {
+        Entry.reposObj.myRepos = data;
+        console.log(data);
+        if (nextFunction) {nextFunction();};
+      }
+    });
+  };
+
+  Entry.reposObj.withTheAttribute = function(myAttr) {
+    return Entry.reposObj.allRepos.filter(function(aRepo) {
+      return aRepo[myAttr];
+    });
+  };
 
   function Img(name, url) {
     this.name = name;
@@ -172,7 +179,7 @@
   function prepPage() {
     //repetitive content in main()
     Entry.entries = JSON.parse(localStorage.myPortProject);
-    generateContent();  //****************1
+    generateContent();
     if (window.innerWidth <= 680) {
       $('.nav-menu').html('');
       $('#main').accordion({ heightStyle: 'content'});
@@ -195,7 +202,7 @@
         var eTag = xhr.getResponseHeader('eTag');
         if (!localStorage.eTag || eTag !== localStorage.eTag) {
           localStorage.eTag = eTag;
-          getEntryData(nextFunction);
+          Entry.reposObj.requestRepos(getEntryData(nextFunction));
         } else {
           nextFunction();
         }
