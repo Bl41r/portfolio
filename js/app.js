@@ -44,7 +44,7 @@
     $.get('/github/users/Bl41r/repos?per_page=0&sort=update')
           .done(function(data) {
             Entry.reposObj.myRepos = data;
-            console.log(data);
+            // console.log(data);
             localStorage.myPortProjectRepos = JSON.stringify(data);
           }).done(function() {
             nextFunction1(nextFunction2);
