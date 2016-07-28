@@ -238,7 +238,7 @@
     $('#home').on('click', handleHome);
   }
 
-  module.Entry = Entry;
+  // module.Entry = Entry;
   page('/', handleHome);
   page();
   $(document).ready(main);
