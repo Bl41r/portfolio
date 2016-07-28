@@ -27,22 +27,28 @@
   Entry.reposObj.myRepos = [];
 
   Entry.reposObj.requestRepos = function(nextFunction1, nextFunction2) {
-    $.ajax({
-      url: 'https://api.github.com/users/Bl41r/repos' +
-         '?per_page=0' +
-         '&sort=update',
-      type: 'GET',
-      headers: {
-        'Authorization': 'token ' + githubToken,
-      },
-      success: function(data, message, xhr) {
-        Entry.reposObj.myRepos = data;
-        console.log(data);
-        localStorage.myPortProjectRepos = JSON.stringify(data);
-        Entry.reposObj.myRepos = data;
-        nextFunction1(nextFunction2);
-      }
-    });
+    // $.get({'/github/users/Bl41r/repos' +
+    //      '?per_page=0' +
+    //      '&sort=update',
+    //   type: 'GET',
+    //   headers: {
+    //     'Authorization': 'token ' + githubToken,
+    //   },
+    //   success: function(data, message, xhr) {
+    //     Entry.reposObj.myRepos = data;
+    //     console.log(data);
+    //     localStorage.myPortProjectRepos = JSON.stringify(data);
+    //     nextFunction1(nextFunction2);
+    //   }
+    // });
+    $.get('/github/users/Bl41r/repos?per_page=0&sort=update')
+          .done(function(data) {
+            Entry.reposObj.myRepos = data;
+            console.log(data);
+            localStorage.myPortProjectRepos = JSON.stringify(data);
+          }).done(function() {
+            nextFunction1(nextFunction2);
+          });
   };
 
   Entry.reposObj.withTheAttribute = function(myAttr) {
