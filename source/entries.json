@@ -64,5 +64,12 @@
 		"date": "2016-07-17",
 		"html": "<p class=\"last\"><a href=\"https://bl41r.github.io/eat_fellows/\"><img class=\"entry-img\" src=\"img/eat_fellows_shot.png\"></a>This was my end-of-the-class project for my first class at Code Fellows.  With 3 other classmates, we put together a web site to help new students (such as ourselves) find a place to eat nearby for lunch.  Using a model similar to Yelp, we used a survey to create a local database of restaurants that other students enjoyed, and added a google map with markers and the ability to filter results by food category, price, and whether or not it was a good place to code.  The site makes the ordeal as simple as possible.  There is also a form for adding new restaurants, as well as the ability to leave reviews.  We managed to pull this project off in just under a week, and am very proud of it, considering that I had only been studying JavaScript, HTML, and CSS for three weeks before starting it.\n<a href=\"https://github.com/Bl41r/eat_fellows\">Link to GitHub repository</a></p>",
 		"projID": 62426588
+	},
+	{
+		"name":"Code",
+		"section":"Sentinal",
+		"date":"2016-08-06",
+		"html":"<p class=\"last\"><a href=\"https://project-sentinal.herokuapp.com\"><img class=\"entry-img\" src=\"img/sentinal.png\"></a>This was the final project for my 301 class at Code Fellows.  With two other classmates, we created a Twitter sentiment analysis single-page app.  It uses the AFINN111 sentiment analysis dictionary to score words in a tweet, and reports the results for a poll.  It is currently set to 200 tweets for performance, but may be increased.  When a user queries our server, the server-side connects with the Twitter API, gathers the data, calculates the results, and then sends those results back to the client-side, which uses that information to generate the charts.  Results can also be shared with a link at the bottom, and the timestamp will be visible to anyone who visits the link.  Our back-end uses NodeJS Express.  This repo was forked from the main project so that I can continue to develop it now that the class is over.\n<a href=\"https://github.com/Bl41r/sentinal\">Link to GitHub repository</a></p>",
+		"projID": 65093439
 	}
 ]
