@@ -15,7 +15,7 @@
 		"name": "Education",
 		"url": "edu.png"
 	},
-	"html": "<p class=\"last\">I graduated in 2015 with a B.S. in chemistry and a B.A. in biochemistry from the University of Washington.  My favorite subjects were chemical biology, quantitative analysis, and statistical mechanics.  I joined Code Fellows in the summer of 2016 as a 201 student learning HTML, CSS, and JavaScript, and am currently in the 301 class, on track to learn Python.  If you click on my GitHub link at the top of the page, you can see some of the projects that I have been working on.</p>"
+	"html": "<p class=\"last\">I graduated in 2015 with a B.S. in chemistry and a B.A. in biochemistry from the University of Washington.  My favorite subjects were chemical biology, quantitative analysis, and statistical mechanics.  I joined Code Fellows in the summer of 2016 as a 201 student learning HTML, CSS, and JavaScript, and am currently in the 401 class, learning Python.  If you click on my GitHub link at the top of the page, you can see some of the projects that I have been working on.</p>"
 }, {
 	"name": "Experience",
 	"section": "Experience",
@@ -24,7 +24,7 @@
 		"name": "Experience",
 		"url": "work.png"
 	},
-	"html": "<p class=\"last\">Throughout my experience as a working member of society, I have worked as a cashier, a QA technician at a tire factory, and a server at many restaurants.  I am in the process of taking what I have learned and changing my career to the technology field, incorporating my education and experiences.</p>"
+	"html": "<p class=\"last\">Throughout my experience as a working member of society, I have worked as a cashier, a QA technician at a tire factory, and a server at many restaurants.  I am in the process of taking what I have learned and changing my career to become a developer, incorporating my education and experiences.</p>"
 }, {
 	"name": "Interests",
 	"section": "Interests",
@@ -69,7 +69,7 @@
 		"name":"Code",
 		"section":"Sentinal",
 		"date":"2016-08-06",
-		"html":"<p class=\"last\"><a href=\"https://project-sentinal.herokuapp.com\"><img class=\"entry-img\" src=\"img/sentinal.png\"></a>This was the final project for my 301 class at Code Fellows.  With two other classmates, we created a Twitter sentiment analysis single-page app.  It uses the AFINN111 sentiment analysis dictionary to score words in a tweet, and reports the results for a poll.  It is currently set to 200 tweets for performance, but may be increased.  When a user queries our server, the server-side connects with the Twitter API, gathers the data, calculates the results, and then sends those results back to the client-side, which uses that information to generate the charts.  Results can also be shared with a link at the bottom, and the timestamp will be visible to anyone who visits the link.  Our back-end uses NodeJS Express.  This repo was forked from the main project so that I can continue to develop it now that the class is over.\n<a href=\"https://github.com/Bl41r/sentinal\">Link to GitHub repository</a></p>",
+		"html":"<p class=\"last\"><a href=\"https://project-sentinal.herokuapp.com\"><img class=\"entry-img\" src=\"img/sentinal.png\"></a>This was the final project for my 301 class at Code Fellows.  With two other classmates, we created a Twitter sentiment analysis single-page app in a week.  It uses the AFINN111 sentiment analysis dictionary to score words in a tweet, and reports the results for a poll.  It is currently set to pull 200 tweets for performance, but may be increased.  When a user queries our server, the server-side connects with the Twitter API, gathers the data, calculates the results, and then sends those results back to the client-side, which uses that information to generate the charts.  Results can also be shared with a link at the bottom, or to Facebook and Twitter, and the timestamp will be visible to anyone who visits the link.  Our back-end uses NodeJS Express.  This repo was forked from the main project so that I can continue to develop it now that the class is over.\n<a href=\"https://github.com/Bl41r/sentinal\">Link to GitHub repository</a></p>",
 		"projID": 65093439
 	}
 ]
