@@ -15,7 +15,7 @@
 		"name": "Education",
 		"url": "edu.png"
 	},
-	"html": "<p class=\"last\">I graduated in 2015 with a B.S. in chemistry and a B.A. in biochemistry from the University of Washington.  My favorite subjects were chemical biology, quantitative analysis, and statistical mechanics.  I joined Code Fellows in the summer of 2016 as a 201 student learning HTML, CSS, and JavaScript, and am currently in the 401 class, learning Python.  If you click on my GitHub link at the top of the page, you can see some of the projects that I have been working on.</p>"
+	"html": "<p class=\"last\">I graduated in 2015 with a B.S. in chemistry and a B.A. in biochemistry from the University of Washington.  My favorite subjects were chemical biology, quantitative analysis, and statistical mechanics.  I joined Code Fellows in the summer of 2016 as a 201 student learning HTML, CSS, and JavaScript, and am currently in the 401 class, learning Python.  Check out my GitHub repository, or browse my site to see some of the projects that I have been working on.</p>"
 }, {
 	"name": "Experience",
 	"section": "Experience",
